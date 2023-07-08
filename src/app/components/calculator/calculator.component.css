@@ -1,0 +1,16 @@
+.calculator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.currency-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.currency-input {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

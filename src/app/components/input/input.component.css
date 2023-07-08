@@ -1,0 +1,42 @@
+input[type="number"] {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(3em + 2px);
+  margin: 0 0 1em;
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 1.5em;
+  background: #fff;
+  resize: none;
+  outline: none;
+}
+input[type="number"][required]:focus {
+  border-color: #00bafa;
+}
+input[type="number"][required]:focus + label[placeholder]:before {
+  color: #00bafa;
+}
+input[type="number"][required]:invalid + label[placeholder]:before {
+  content: attr(placeholder);
+}
+input[type="number"][required] + label[placeholder] {
+  transform: translate(0, -1.5em) scale(0.9, 0.9);
+  display: block;
+  pointer-events: none;
+  line-height: 1.25em;
+  margin-top: calc(-3em - 2px);
+  margin-bottom: calc((3em - 1em) + 2px);
+}
+input[type="number"][required] + label[placeholder]:before {
+  content: attr(placeholder);
+  display: inline-block;
+  margin: 0 calc(1em + 2px);
+  padding: 0 2px;
+  color: #898989;
+  white-space: nowrap;
+  transition: 0.3s ease-in-out;
+  background-image: linear-gradient(to bottom, #fff, #fff);
+  background-size: 100% 5px;
+  background-repeat: no-repeat;
+  background-position: center;
+}

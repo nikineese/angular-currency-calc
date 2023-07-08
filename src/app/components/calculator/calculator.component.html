@@ -1,0 +1,23 @@
+
+<div class="calculator">
+  <app-date/>
+  <ng-template #loading>
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </ng-template>
+  <ng-container *ngIf="selectCurrencyOptions$ | async as selectOptions; else loading">
+    <div class="currency-inputs">
+      <ng-container *ngFor="let i of [0,1]">
+        <div class="currency-input">
+          <app-select-currency
+            [value]="chosenCurrencies[i].cc"
+            (valueChanges)="currencyChanges($event, i)"
+            [options]="selectOptions"
+          />
+          <app-input [value]="values[i]" (valueChanges)="valuesChanges($event,i)" [currency]="chosenCurrencies[i].cc"/>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>
+
+

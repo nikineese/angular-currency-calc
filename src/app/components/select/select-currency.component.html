@@ -1,0 +1,4 @@
+<select [(ngModel)]="value" (ngModelChange)="changed()">
+  <option disabled value="">---Choose currency---</option>
+  <option *ngFor="let opt of options" [value]="opt.value.cc">{{opt.label}}</option>
+</select>
