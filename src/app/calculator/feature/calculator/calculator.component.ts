@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CurrencyService } from '../../data-access/currency.service';
-import { map } from 'rxjs';
+import { map, shareReplay } from 'rxjs';
 import {
   Currency,
   OptionCurrencyValue,
@@ -14,7 +14,10 @@ import {
   providers: [CurrencyService],
 })
 export class CalculatorComponent {
-  currencies$ = this.currency.getCurrencies().pipe(this.getAddHryvnaMapper());
+  currencies$ = this.currency
+    .getCurrencies()
+    .pipe(shareReplay(1))
+    .pipe(this.getAddHryvnaMapper());
   selectCurrencyOptions$ = this.currencies$.pipe<SelectOption[]>(
     this.getCurrencyToSelectOptionsMapper(),
   );
@@ -54,9 +57,9 @@ export class CalculatorComponent {
 
   private getCurrencyToSelectOptionsMapper() {
     return map((currencies: Currency[]) =>
-      currencies.map((curr) => ({
-        label: curr.txt,
-        value: { cc: curr.cc, rate: curr.rate },
+      currencies.map(({ txt, cc, rate }) => ({
+        label: txt,
+        value: { cc, rate },
       })),
     );
   }
