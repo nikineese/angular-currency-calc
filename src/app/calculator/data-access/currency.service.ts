@@ -23,8 +23,12 @@ export class CurrencyService {
     changedValueId: number,
   ) {
     const notChangedValueId = changedValueId ? 0 : 1;
+    if (values[changedValueId] === null || values[notChangedValueId] === null)
+      return [0, 0];
+
     const changedValueCurrency = currencies[changedValueId];
     const notChangedValueCurrency = currencies[notChangedValueId];
+
     const changedValue = Number(values[changedValueId].toFixed(0));
     const recalculatedNotChangedValue = Number(
       (
@@ -32,6 +36,7 @@ export class CurrencyService {
         notChangedValueCurrency.rate
       ).toFixed(0),
     );
+
     return changedValueId > notChangedValueId
       ? [recalculatedNotChangedValue, changedValue]
       : [changedValue, recalculatedNotChangedValue];

@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
-import { CurrencyService } from '../../services/currency/currency.service';
-import { LoggerService } from '../../services/logger';
+import { CurrencyService } from '../../data-access/currency.service';
 import { map } from 'rxjs';
 import {
   OptionCurrencyValue,
   SelectOption,
-} from '../../shared/interfaces/currency';
+} from '../../../shared/interfaces/currency';
 
 @Component({
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.css'],
-  providers: [CurrencyService, LoggerService],
+  providers: [CurrencyService],
 })
 export class CalculatorComponent {
   currencies$ = this.currency.getCurrencies().pipe(

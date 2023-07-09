@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormatDate } from '../../shared/constants/date';
+import { FormatDate } from '../../../shared/constants/date';
 
 @Component({
   selector: 'app-date',
@@ -8,11 +8,5 @@ import { FormatDate } from '../../shared/constants/date';
 })
 export class DateComponent {
   currentDate = new Date();
-  toggle = true;
-
-  toggleFormat() {
-    this.toggle = !this.toggle;
-  }
-
   protected readonly FormatDate = FormatDate;
 }

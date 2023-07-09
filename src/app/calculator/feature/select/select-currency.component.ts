@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   OptionCurrencyValue,
   SelectOption,
-} from '../../shared/interfaces/currency';
+} from '../../../shared/interfaces/currency';
 
 @Component({
   selector: 'app-select-currency',
