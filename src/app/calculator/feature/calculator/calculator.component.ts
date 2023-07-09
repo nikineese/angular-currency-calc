@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CurrencyService } from '../../data-access/currency.service';
-import { map, shareReplay } from 'rxjs';
+import { map } from 'rxjs';
 import {
   Currency,
   OptionCurrencyValue,
   SelectOption,
 } from '../../../shared/interfaces/currency';
+import { CurrencyApiService } from '../../data-access/currency.api.service';
 
 @Component({
   selector: 'app-calculator',
@@ -14,9 +15,8 @@ import {
   providers: [CurrencyService],
 })
 export class CalculatorComponent {
-  currencies$ = this.currencyService
+  currencies$ = this.currencyApi
     .getCurrencies()
-    .pipe(shareReplay(1))
     .pipe(this.getAddHryvnaMapper());
   selectCurrencyOptions$ = this.currencies$.pipe<SelectOption[]>(
     this.getCurrencyToSelectOptionsMapper(),
@@ -29,7 +29,10 @@ export class CalculatorComponent {
   values: number[] = [0, 0];
   changedValueId = 0;
 
-  constructor(private currencyService: CurrencyService) {}
+  constructor(
+    private currencyService: CurrencyService,
+    private currencyApi: CurrencyApiService,
+  ) {}
 
   private recalculateValues(changedId: number) {
     if (changedId !== this.changedValueId) {

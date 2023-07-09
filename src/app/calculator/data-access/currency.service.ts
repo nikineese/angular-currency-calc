@@ -1,22 +1,10 @@
 import { Injectable } from '@angular/core';
-import {
-  Currency,
-  OptionCurrencyValue,
-} from '../../shared/interfaces/currency';
-import { HttpClient } from '@angular/common/http';
+import { OptionCurrencyValue } from '../../shared/interfaces/currency';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CurrencyService {
-  currencyApiUrl =
-    'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json';
-
-  constructor(private http: HttpClient) {}
-
-  getCurrencies() {
-    return this.http.get<Currency[]>(this.currencyApiUrl);
-  }
   getRecalculatedValues(
     currencies: OptionCurrencyValue[],
     values: number[],
