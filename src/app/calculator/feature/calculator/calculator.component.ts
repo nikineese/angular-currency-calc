@@ -4,7 +4,6 @@ import { map } from 'rxjs';
 import {
   Currency,
   OptionCurrencyValue,
-  SelectOption,
 } from '../../../shared/interfaces/currency';
 import { CurrencyApiService } from '../../data-access/currency.api.service';
 
@@ -15,12 +14,8 @@ import { CurrencyApiService } from '../../data-access/currency.api.service';
   providers: [CurrencyService],
 })
 export class CalculatorComponent {
-  currencies$ = this.currencyApi
-    .getCurrencies()
-    .pipe(this.getAddHryvnaMapper());
-  selectCurrencyOptions$ = this.currencies$.pipe<SelectOption[]>(
-    this.getCurrencyToSelectOptionsMapper(),
-  );
+  currencies$ = this.getCurrencies().pipe(this.getAddHryvnaMapper());
+  selectCurrencyOptions$ = this.getSelectCurrencyOptions();
 
   chosenCurrencies: OptionCurrencyValue[] = [
     { cc: '', rate: 0 },
@@ -45,6 +40,9 @@ export class CalculatorComponent {
     );
   }
 
+  private getCurrencies() {
+    return this.currencyApi.getCurrencies();
+  }
   private getAddHryvnaMapper() {
     return map((currencies: Currency[]) => [
       ...currencies,
@@ -58,12 +56,14 @@ export class CalculatorComponent {
     ]);
   }
 
-  private getCurrencyToSelectOptionsMapper() {
-    return map((currencies: Currency[]) =>
-      currencies.map(({ txt, cc, rate }) => ({
-        label: txt,
-        value: { cc, rate },
-      })),
+  private getSelectCurrencyOptions() {
+    return this.currencies$.pipe(
+      map((currencies: Currency[]) =>
+        currencies.map(({ txt, cc, rate }) => ({
+          label: txt,
+          value: { cc, rate },
+        })),
+      ),
     );
   }
 
