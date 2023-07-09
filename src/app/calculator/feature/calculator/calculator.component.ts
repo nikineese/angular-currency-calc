@@ -14,7 +14,7 @@ import {
   providers: [CurrencyService],
 })
 export class CalculatorComponent {
-  currencies$ = this.currency
+  currencies$ = this.currencyService
     .getCurrencies()
     .pipe(shareReplay(1))
     .pipe(this.getAddHryvnaMapper());
@@ -29,13 +29,13 @@ export class CalculatorComponent {
   values: number[] = [0, 0];
   changedValueId = 0;
 
-  constructor(private currency: CurrencyService) {}
+  constructor(private currencyService: CurrencyService) {}
 
   private recalculateValues(changedId: number) {
     if (changedId !== this.changedValueId) {
       this.changedValueId = changedId;
     }
-    this.values = this.currency.getRecalculatedValues(
+    this.values = this.currencyService.getRecalculatedValues(
       this.chosenCurrencies,
       this.values,
       this.changedValueId,
